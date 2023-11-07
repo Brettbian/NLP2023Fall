@@ -1,3 +1,6 @@
 *.csv
 *.txt
 *.jsonl
+*.pyc
+__pycache__/
+
