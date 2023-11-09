@@ -1,13 +1,73 @@
 # NLP2023Fall
 
-## Generate mutilple choice dataset with COT by GPT
-### McTest
-The original dataset comprises 2,000 entries. Given the limitations of our computational resources, we've created a subset of this data for effective processing. The subset includes:
+## Dataset Overview: Generate mutilple choice dataset with COT by GPT
+### Dataset1: TruthfulQA
+
+*Information about TruthfulQA dataset goes here.*
+
+### Dataset2: McTest
+
+We use a middle-sized dataset sourced from Hugging Face, originally consisting of 2,000 entries. Details and composition are as follows:
 
 - **Training Set:** 240 entries
-- **Test Set:** 240 entries
 - **Validation Set:** 120 entries
+- **Test Set:** 240 entries
 
-[mctest160.ipynb](gpt-multiple-choice-cot-dataset-generator/mctest160/mctest160.ipynb): This Jupyter notebook contains the code that details the process of dataset generation, preprocessing, and model training/testing.
+Find the orginal dataset here: [McTest Dataset on Hugging Face](https://huggingface.co/datasets/sagnikrayc/mctest).
 
-The generated dataset is hosted on the Hugging Face platform under the repository `BENBENBENb/mc160cot`. This allows for easy access and integration with machine learning pipelines.
+#### Processing Notebook
+
+For dataset generation, preprocessing, and model training/testing processes, please refer to:
+
+- [McTest.ipynb](gpt-multiple-choice-cot-dataset-generator/McTest/McTest.ipynb)
+
+#### Generated Dataset Repository
+
+The resulting dataset is hosted on Hugging Face at the following repository, which facilitates easy access and integration into machine learning workflows:
+
+- **Hugging Face Repository:** `BENBENBENb/McTest160COT`
+
+### Dataset3: RACE
+
+The RACE dataset is a middle-sized collection sourced from Hugging Face with a total of 28,300 entries. Given computational constraints, we have processed a subset for practical handling, as detailed below:
+
+- **Training Set:** 600 entries
+- **Validation Set:** 200 entries
+- **Test Set:** 200 entries
+
+Find the orginal dataset here: [RACE Dataset on Hugging Face](https://huggingface.co/datasets/race/viewer/middle).
+
+#### Subset Selection Method
+
+The subset was formulated by excluding stories with more than 800 characters to ensure uniformity. We then performed random sampling to obtain 600 training entries, and 200 entries each for validation and test sets.
+
+#### Processing Notebook
+
+For a detailed explanation of dataset preparation and preprocessing steps, see the accompanying notebook:
+
+- [RACE.ipynb](gpt-multiple-choice-cot-dataset-generator/RACE/RACE.ipynb)
+
+#### Generated Dataset Repository
+
+The resulting dataset is hosted on Hugging Face at the following repository, which facilitates easy access and integration into machine learning workflows:
+
+- **Hugging Face Repository:** `BENBENBENb/RACE1000COT`
+
+### Dataset4: ARC
+In this project, we have worked with the ARC dataset, which consists of two distinct sets: ARC-Easy and ARC-Challenge. The original ARC-Easy dataset contains approximately 5.2k entries, while the ARC-Challenge includes around 2.59k entries. Due to computational constraints, it was necessary to create smaller, more manageable subsets of the data, as detailed below:
+
+- **Training Set:** 600 entries
+- **Validation Set:** 200 entries
+- **Test Set:** 200 entries
+
+Find the dataset here: [ARC Dataset on Hugging Face](https://huggingface.co/datasets/ai2_arc/viewer/ARC-Easy).
+
+#### Subset Selection Method
+- Approach: Equal parts from ARC-Easy and ARC-Challenge were combined after random shuffling to ensure variety and reproducibility.
+- Subset Sizes: 300 entries for each category in the training set and 100 entries for each in the validation and test sets, totaling 600 for training and 200 for both validation and test sets.
+
+#### Processing Notebook
+
+For a detailed explanation of dataset preparation and preprocessing steps, see the accompanying notebook:
+
+- [ARC.ipynb](gpt-multiple-choice-cot-dataset-generator/ARC/ARC.ipynb)

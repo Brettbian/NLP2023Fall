@@ -1,0 +1,13 @@
+config.py
+
+# Ignore all text files
+*.txt
+
+# Ignore all JSONL files
+*.jsonl
+
+# Ignore all CSV files
+*.csv
+
+# Ignore Python compiled cache
+__pycache__/
