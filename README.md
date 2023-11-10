@@ -25,7 +25,7 @@ For dataset generation, preprocessing, and model training/testing processes, ple
 
 The resulting dataset is hosted on Hugging Face at the following repository, which facilitates easy access and integration into machine learning workflows:
 
-- **Hugging Face Repository:** `McTest640COT`
+- **Hugging Face Repository:** [BENBENBENb/McTest640COT](https://huggingface.co/datasets/BENBENBENb/McTest640COT)
 
 ### Dataset3: RACE
 
@@ -51,7 +51,7 @@ For a detailed explanation of dataset preparation and preprocessing steps, see t
 
 The resulting dataset is hosted on Hugging Face at the following repository, which facilitates easy access and integration into machine learning workflows:
 
-- **Hugging Face Repository:** `BENBENBENb/RACE1000COT`
+- **Hugging Face Repository:** [BENBENBENb/RACE1000COT](https://huggingface.co/datasets/BENBENBENb/RACE1000COT)
 
 ### Dataset4: ARC
 In this project, we have worked with the ARC dataset, which consists of two distinct sets: ARC-Easy and ARC-Challenge. The original ARC-Easy dataset contains approximately 5.2k entries, while the ARC-Challenge includes around 2.59k entries. Due to computational constraints, it was necessary to create smaller, more manageable subsets of the data, as detailed below:
@@ -77,7 +77,7 @@ For a detailed explanation of dataset preparation and preprocessing steps, see t
 
 The resulting dataset is hosted on Hugging Face at the following repository, which facilitates easy access and integration into machine learning workflows:
 
-- **Hugging Face Repository:** `BENBENBENb/ARC1000COT`
+- **Hugging Face Repository:** [BENBENBENb/ARC1000COT](https://huggingface.co/datasets/BENBENBENb/ARC1000COT)
 
 ### Dataset5: CommonsenseQA
 
@@ -103,4 +103,4 @@ For a detailed explanation of dataset preparation and preprocessing steps, see t
 
 The resulting dataset is hosted on Hugging Face at the following repository, which facilitates easy access and integration into machine learning workflows:
 
-- **Hugging Face Repository:** `BENBENBENb/CommonsenseQA1000COT`
+- **Hugging Face Repository:** [BENBENBENb/CommonsenseQA1000COT](https://huggingface.co/datasets/BENBENBENb/CommonsenseQA1000COT)
