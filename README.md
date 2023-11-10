@@ -8,7 +8,7 @@ This section documents the multiple-choice datasets used in the NLP2023Fall proj
 
 ### 2. McTest
 #### Overview
-McTest is a medium-sized dataset sourced from [Hugging Face](https://huggingface.co/datasets/sagnikrayc/mctest), comprising 2,000 entries. Given computational constraints, we have processed a subset for practical handling, as detailed below:
+[McTest](https://huggingface.co/datasets/sagnikrayc/mctest) is a medium-sized dataset sourced from Hugging Face, comprising 2,000 entries. Given computational constraints, we have processed a subset for practical handling, as detailed below:
 - **Training Set:** 240 entries
 - **Validation Set:** 120 entries
 - **Test Set:** 240 entries
@@ -19,7 +19,7 @@ McTest is a medium-sized dataset sourced from [Hugging Face](https://huggingface
 
 ### 3. RACE
 #### Overview
-The RACE dataset, a medium-sized collection from [Hugging Face](https://huggingface.co/datasets/race/viewer/middle), includes 28,300 entries. Given computational constraints, we have processed a subset for practical handling, as detailed below:
+The [RACE dataset](https://huggingface.co/datasets/race/viewer/middle), a medium-sized collection from Hugging Face, includes 28,300 entries. Given computational constraints, we have processed a subset for practical handling, as detailed below:
 - **Training Set:** 600 entries
 - **Validation Set:** 200 entries
 - **Test Set:** 200 entries
@@ -47,7 +47,7 @@ Combined equal parts from ARC-Easy and ARC-Challenge, ensuring variety.
 
 ### 5. CommonsenseQA
 #### Overview
-CommonsenseQA is sourced from [Hugging Face](https://huggingface.co/datasets/commonsense_qa), totaling 12,102 entries. Given computational constraints, we have processed a subset for practical handling, as detailed below:
+[CommonsenseQA](https://huggingface.co/datasets/commonsense_qa) is sourced from Hugging Face, totaling 12,102 entries. Given computational constraints, we have processed a subset for practical handling, as detailed below:
 - **Training Set:** 600 entries
 - **Validation Set:** 200 entries
 - **Test Set:** 200 entries
