@@ -25,7 +25,7 @@ For dataset generation, preprocessing, and model training/testing processes, ple
 
 The resulting dataset is hosted on Hugging Face at the following repository, which facilitates easy access and integration into machine learning workflows:
 
-- **Hugging Face Repository:** `BENBENBENb/McTest160COT`
+- **Hugging Face Repository:** `McTest640COT`
 
 ### Dataset3: RACE
 
@@ -65,9 +65,42 @@ Find the dataset here: [ARC Dataset on Hugging Face](https://huggingface.co/data
 #### Subset Selection Method
 - Approach: Equal parts from ARC-Easy and ARC-Challenge were combined after random shuffling to ensure variety and reproducibility.
 - Subset Sizes: 300 entries for each category in the training set and 100 entries for each in the validation and test sets, totaling 600 for training and 200 for both validation and test sets.
+- Modification on the Key: In the original dataset, the answerKey could be either numeric ('1', '2', '3', '4') or alphabetic ('A', 'B', 'C', 'D'). We converts numeric answer keys to their corresponding alphabetic labels to achieve a uniform format across the dataset.
 
 #### Processing Notebook
 
 For a detailed explanation of dataset preparation and preprocessing steps, see the accompanying notebook:
 
 - [ARC.ipynb](gpt-multiple-choice-cot-dataset-generator/ARC/ARC.ipynb)
+
+#### Generated Dataset Repository
+
+The resulting dataset is hosted on Hugging Face at the following repository, which facilitates easy access and integration into machine learning workflows:
+
+- **Hugging Face Repository:** `BENBENBENb/ARC1000COT`
+
+### Dataset5: CommonsenseQA
+
+The CommonsenseQA dataset is a middle-sized collection sourced from Hugging Face with a total of 12,102 entries. Given computational constraints, we have processed a subset for practical handling, as detailed below:
+
+- **Training Set:** 600 entries
+- **Validation Set:** 200 entries
+- **Test Set:** 200 entries
+
+Find the orginal dataset here: [CommonsenseQA Dataset on Hugging Face](https://huggingface.co/datasets/commonsense_qa).
+
+#### Subset Selection Method
+
+We performed random sampling to obtain 600 training entries, and 200 entries each for validation and test sets.
+
+#### Processing Notebook
+
+For a detailed explanation of dataset preparation and preprocessing steps, see the accompanying notebook:
+
+- [CommonsenseQA.ipynb](gpt-multiple-choice-cot-dataset-generator/CommonsenseQA/CommonsenseQA.ipynb)
+
+#### Generated Dataset Repository
+
+The resulting dataset is hosted on Hugging Face at the following repository, which facilitates easy access and integration into machine learning workflows:
+
+- **Hugging Face Repository:** `BENBENBENb/CommonsenseQA1000COT`
