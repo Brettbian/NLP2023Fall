@@ -55,7 +55,3 @@ Combined equal parts from ARC-Easy and ARC-Challenge, ensuring variety.
 #### Processing and Access
 - **Notebook:** [CommonsenseQA.ipynb](gpt-multiple-choice-cot-dataset-generator/CommonsenseQA/CommonsenseQA.ipynb)
 - **Generated Dataset:** [BENBENBENb/CommonsenseQA1000COT](https://huggingface.co/datasets/BENBENBENb/CommonsenseQA1000COT)
-
----
-
-This revised format combines the introduction of each dataset with its corresponding link, making the README clearer and more streamlined.
