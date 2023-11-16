@@ -1,2 +1,4 @@
 .*
-!/.gitignore
+!/.gitignor
+brettbbb/
+*.npy
