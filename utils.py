@@ -90,25 +90,25 @@ def preprocess_batch(batch, tokenizer, max_length):
     )
 
 def format_data(sample, dataset_name, cot):
-    DATASET_TYPE = _identify_dataset_type(dataset_name)
+    dataset_type = _identify_dataset_type(dataset_name)
     INSTRUCTION_KEY = "<s>[INST]"
     INSTRUCTION_END = "</INST>"
     END_OF_SENTENCE = "</s>"
-    if DATASET_TYPE == 'mctest':
+    if dataset_type == 'mctest':
         #replace //newline with \n
         sample['Story'] = sample['Story'].replace('\\newline', '')
         prompt = f"Question: {sample['Question']} Based on the following article:\n{sample['Story']}.\nOptions: \n{sample['Options']}."
         predicted_answer = sample['Predicted Answer']
         actual_answer = sample['Actual Answer']
-    if DATASET_TYPE == 'race':
+    if dataset_type == 'race':
         prompt = f"Question: {sample['question']} Based on the following article:\n{sample['article']}.\nOptions: \n{sample['options']}."
         predicted_answer = sample['predicted_answer']
         actual_answer = sample['answer']
-    if DATASET_TYPE =='commonsenseqa':
+    if dataset_type =='commonsenseqa':
         prompt = f"Question: {sample['question']}.\nOptions: \n{sample['choices']}."
         predicted_answer = sample['predicted_answer']
         actual_answer = sample['answerKey']
-    if DATASET_TYPE == 'arc':
+    if dataset_type == 'arc':
         prompt = f"Question: {sample['question']}.\nOptions: \n{sample['choices']}."
         predicted_answer = sample['predicted_answer']
         actual_answer = sample['answerKey']
@@ -130,6 +130,7 @@ def preprocess_dataset(tokenizer: AutoTokenizer, max_length: int, seed, dataset,
 
     # Add prompt to each sample
     print("Preprocessing dataset...")
+    print(dataset_name)
     _format_data = partial(format_data, dataset_name = dataset_name, cot = cot)
     dataset = dataset.map(_format_data)
 
