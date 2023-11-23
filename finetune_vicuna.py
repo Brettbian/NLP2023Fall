@@ -22,7 +22,7 @@ parser.add_argument("--dataset_name", type=str, help="dataset name")
 parser.add_argument("--output_dir", type=str, default="output", help="output directory")
 parser.add_argument("--batch_size", type=int, default=4, help="batch size")
 parser.add_argument("--learning_rate", type=float, default=1e-4, help="learning rate")
-parser.add_argument("--num_train_epochs", type=int, default=20, help="number of training epochs")
+parser.add_argument("--epochs", type=int, default=20, help="number of training epochs")
 parser.add_argument("--warmup_steps", type=int, default=5, help="warmup steps")
 parser.add_argument("--logging_steps", type=int, default=1, help="logging steps")
 parser.add_argument("--eval_strategy", type=str, default="epoch", help="evaluation strategy")
@@ -173,7 +173,7 @@ def main():
     output_dir = args.output_dir
     batch_size = args.batch_size
     learning_rate = args.learning_rate
-    num_train_epochs = args.num_train_epochs
+    num_train_epochs = args.epochs
     warmup_steps = args.warmup_steps
     logging_steps = args.logging_steps
     eval_strategy = args.eval_strategy
@@ -207,6 +207,9 @@ def main():
 
     trainer = train(model, tokenizer, dataset, output_dir, trainargs)
     example_output(dataset, tokenizer, model)
+
+if __name__ == "__main__":
+    main()
 
     
 
