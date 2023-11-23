@@ -100,15 +100,15 @@ def format_data(sample, dataset_name, cot):
         prompt = f"Question: {sample['Question']} Based on the following article:\n{sample['Story']}.\nOptions: \n{sample['Options']}."
         predicted_answer = sample['Predicted Answer']
         actual_answer = sample['Actual Answer']
-    if DATASET_TYPE == 'RACE':
+    if DATASET_TYPE == 'race':
         prompt = f"Question: {sample['question']} Based on the following article:\n{sample['article']}.\nOptions: \n{sample['options']}."
         predicted_answer = sample['predicted_answer']
         actual_answer = sample['answer']
-    if DATASET_TYPE =='CommonsenseQA':
+    if DATASET_TYPE =='commonsenseqa':
         prompt = f"Question: {sample['question']}.\nOptions: \n{sample['choices']}."
         predicted_answer = sample['predicted_answer']
         actual_answer = sample['answerKey']
-    if DATASET_TYPE == 'ARC':
+    if DATASET_TYPE == 'arc':
         prompt = f"Question: {sample['question']}.\nOptions: \n{sample['choices']}."
         predicted_answer = sample['predicted_answer']
         actual_answer = sample['answerKey']
