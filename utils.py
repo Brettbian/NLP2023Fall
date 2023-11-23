@@ -94,21 +94,22 @@ def format_data(sample, dataset_name, cot):
     INSTRUCTION_KEY = "<s>[INST]"
     INSTRUCTION_END = "</INST>"
     END_OF_SENTENCE = "</s>"
+    print(dataset_type)
     if dataset_type == 'mctest':
         #replace //newline with \n
         sample['Story'] = sample['Story'].replace('\\newline', '')
         prompt = f"Question: {sample['Question']} Based on the following article:\n{sample['Story']}.\nOptions: \n{sample['Options']}."
         predicted_answer = sample['Predicted Answer']
         actual_answer = sample['Actual Answer']
-    if dataset_type == 'race':
+    elif dataset_type == 'race':
         prompt = f"Question: {sample['question']} Based on the following article:\n{sample['article']}.\nOptions: \n{sample['options']}."
         predicted_answer = sample['predicted_answer']
         actual_answer = sample['answer']
-    if dataset_type =='commonsenseqa':
+    elif dataset_type =='commonsenseqa':
         prompt = f"Question: {sample['question']}.\nOptions: \n{sample['choices']}."
         predicted_answer = sample['predicted_answer']
         actual_answer = sample['answerKey']
-    if dataset_type == 'arc':
+    elif dataset_type == 'arc':
         prompt = f"Question: {sample['question']}.\nOptions: \n{sample['choices']}."
         predicted_answer = sample['predicted_answer']
         actual_answer = sample['answerKey']
