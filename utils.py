@@ -122,7 +122,7 @@ def format_data(sample, dataset_name, cot):
     return sample
 
 # SOURCE https://github.com/databrickslabs/dolly/blob/master/training/trainer.py
-def preprocess_dataset(tokenizer: AutoTokenizer, max_length: int, seed, dataset, cot):
+def preprocess_dataset(tokenizer: AutoTokenizer, max_length: int, seed, dataset, cot, dataset_name):
     """Format & tokenize it so it is ready for training
     :param tokenizer (AutoTokenizer): Model Tokenizer
     :param max_length (int): Maximum number of tokens to emit from tokenizer
@@ -130,7 +130,7 @@ def preprocess_dataset(tokenizer: AutoTokenizer, max_length: int, seed, dataset,
 
     # Add prompt to each sample
     print("Preprocessing dataset...")
-    _format_data = partial(format_data, cot = cot)
+    _format_data = partial(format_data, dataset_name = dataset_name, cot = cot)
     dataset = dataset.map(_format_data)
 
     # Apply preprocessing to each batch of the dataset & and remove 'instruction', 'context', 'response', 'category' fields
