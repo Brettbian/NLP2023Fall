@@ -94,7 +94,6 @@ def format_data(sample, dataset_name, cot):
     INSTRUCTION_KEY = "<s>[INST]"
     INSTRUCTION_END = "</INST>"
     END_OF_SENTENCE = "</s>"
-    print(dataset_type)
     if dataset_type == 'mctest':
         #replace //newline with \n
         sample['Story'] = sample['Story'].replace('\\newline', '')
@@ -115,11 +114,15 @@ def format_data(sample, dataset_name, cot):
         actual_answer = sample['answerKey']
     else:
         raise Exception("Dataset type not recognized.")
+    print(1)
     if cot:
         if predicted_answer == actual_answer:
             sample['text'] = f"{INSTRUCTION_KEY}{prompt}{INSTRUCTION_END} Explanation: {sample['explanation']}{END_OF_SENTENCE}"
+        else:
+            sample['text'] = f"{INSTRUCTION_KEY}{prompt}{INSTRUCTION_END}{END_OF_SENTENCE}"
     else: 
         sample['text'] = f"{INSTRUCTION_KEY}{prompt}{INSTRUCTION_END} Answer: {actual_answer}{END_OF_SENTENCE}"
+    print(2)
     return sample
 
 # SOURCE https://github.com/databrickslabs/dolly/blob/master/training/trainer.py
@@ -131,7 +134,6 @@ def preprocess_dataset(tokenizer: AutoTokenizer, max_length: int, seed, dataset,
 
     # Add prompt to each sample
     print("Preprocessing dataset...")
-    print(dataset_name)
     _format_data = partial(format_data, dataset_name = dataset_name, cot = cot)
     dataset = dataset.map(_format_data)
 
