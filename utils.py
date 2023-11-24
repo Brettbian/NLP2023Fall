@@ -113,6 +113,7 @@ def format_data(sample, dataset_name, cot):
         actual_answer = sample['answerKey']
     elif dataset_type == 'arc':
         choices = sample['choices']
+        print(choices)
         combined_list = [f"{label}. {text}" for label, text in zip(choices['label'], choices['text'])]
         sample['choices'] = " ".join(combined_list)
         prompt = f"Question: {sample['question']}.\nOptions: \n{sample['choices']}."
