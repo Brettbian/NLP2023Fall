@@ -3,6 +3,7 @@ import torch
 import re
 from functools import partial
 import os
+import json
 
 def mkdir(path):
     try:
@@ -105,19 +106,19 @@ def format_data(sample, dataset_name, cot):
         predicted_answer = sample['predicted_answer']
         actual_answer = sample['answer']
     elif dataset_type =='commonsenseqa':
-        combined_list = [f"{label}. {text}" for label, text in zip(sample['choices']['label'], sample['choices']['text'])]
-        choices = " ".join(combined_list)
-        prompt = f"Question: {sample['question']}.\nOptions: \n{choices}."
+        choices = sample['choices']
+        data_dict = json.loads(choices)
+        combined_list = [f"{label}. {text}" for label, text in zip(data_dict['label'], data_dict['text'])]
+        formatted_choices = " ".join(combined_list)
+        prompt = f"Question: {sample['question']}.\nOptions: \n{formatted_choices}."
         predicted_answer = sample['predicted_answer']
         actual_answer = sample['answerKey']
     elif dataset_type == 'arc':
         choices = sample['choices']
-        print(choices)
-        print(type(choices))
-        print(choices['label'])
-        combined_list = [f"{label}. {text}" for label, text in zip(sample['choices']['label'], sample['choices']['text'])]
-        choices = " ".join(combined_list)
-        prompt = f"Question: {sample['question']}.\nOptions: \n{choices}."
+        data_dict = json.loads(choices)
+        combined_list = [f"{label}. {text}" for label, text in zip(data_dict['label'], data_dict['text'])]
+        formatted_choices = " ".join(combined_list)
+        prompt = f"Question: {sample['question']}.\nOptions: \n{formatted_choices}."
         predicted_answer = sample['predicted_answer']
         actual_answer = sample['answerKey']
     else:
