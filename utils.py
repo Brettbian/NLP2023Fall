@@ -117,6 +117,7 @@ def format_data(sample, dataset_name, cot):
         choices = sample['choices']
         print(type(choices))
         print(choices)
+        print(choices['label'])
         try:
             data = json.loads(choices)
             print(data)
