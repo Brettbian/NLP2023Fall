@@ -105,10 +105,9 @@ def format_data(sample, dataset_name, cot):
         predicted_answer = sample['predicted_answer']
         actual_answer = sample['answer']
     elif dataset_type =='commonsenseqa':
-        choices = sample['choices']
-        combined_list = [f"{label}. {text}" for label, text in zip(choices['label'], choices['text'])]
-        sample['choices'] = " ".join(combined_list)
-        prompt = f"Question: {sample['question']}.\nOptions: \n{sample['choices']}."
+        combined_list = [f"{label}. {text}" for label, text in zip(sample['choices']['label'], sample['choices']['text'])]
+        choices = " ".join(combined_list)
+        prompt = f"Question: {sample['question']}.\nOptions: \n{choices}."
         predicted_answer = sample['predicted_answer']
         actual_answer = sample['answerKey']
     elif dataset_type == 'arc':
@@ -116,9 +115,9 @@ def format_data(sample, dataset_name, cot):
         print(choices)
         print(type(choices))
         print(choices['label'])
-        combined_list = [f"{label}. {text}" for label, text in zip(choices['label'], choices['text'])]
-        sample['choices'] = " ".join(combined_list)
-        prompt = f"Question: {sample['question']}.\nOptions: \n{sample['choices']}."
+        combined_list = [f"{label}. {text}" for label, text in zip(sample['choices']['label'], sample['choices']['text'])]
+        choices = " ".join(combined_list)
+        prompt = f"Question: {sample['question']}.\nOptions: \n{choices}."
         predicted_answer = sample['predicted_answer']
         actual_answer = sample['answerKey']
     else:
