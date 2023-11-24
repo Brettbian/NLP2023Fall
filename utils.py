@@ -105,16 +105,21 @@ def format_data(sample, dataset_name, cot):
         predicted_answer = sample['predicted_answer']
         actual_answer = sample['answer']
     elif dataset_type =='commonsenseqa':
+        choices = sample['choices']
+        combined_list = [f"{label}. {text}" for label, text in zip(choices['label'], choices['text'])]
+        sample['choices'] = " ".join(combined_list)
         prompt = f"Question: {sample['question']}.\nOptions: \n{sample['choices']}."
         predicted_answer = sample['predicted_answer']
         actual_answer = sample['answerKey']
     elif dataset_type == 'arc':
+        choices = sample['choices']
+        combined_list = [f"{label}. {text}" for label, text in zip(choices['label'], choices['text'])]
+        sample['choices'] = " ".join(combined_list)
         prompt = f"Question: {sample['question']}.\nOptions: \n{sample['choices']}."
         predicted_answer = sample['predicted_answer']
         actual_answer = sample['answerKey']
     else:
         raise Exception("Dataset type not recognized.")
-    print(1)
     if cot:
         if predicted_answer == actual_answer:
             sample['text'] = f"{INSTRUCTION_KEY}{prompt}{INSTRUCTION_END} Explanation: {sample['explanation']}{END_OF_SENTENCE}"
@@ -122,7 +127,6 @@ def format_data(sample, dataset_name, cot):
             sample['text'] = f"{INSTRUCTION_KEY}{prompt}{INSTRUCTION_END}{END_OF_SENTENCE}"
     else: 
         sample['text'] = f"{INSTRUCTION_KEY}{prompt}{INSTRUCTION_END} Answer: {actual_answer}{END_OF_SENTENCE}"
-    print(2)
     return sample
 
 # SOURCE https://github.com/databrickslabs/dolly/blob/master/training/trainer.py
