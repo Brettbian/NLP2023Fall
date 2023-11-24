@@ -133,6 +133,8 @@ def train(model, tokenizer, dataset, output_dir, trainargs):
     # Launch training
     print("Training...")
     train_result = trainer.train()
+    print("Training done!")
+
     metrics = train_result.metrics
     trainer.log_metrics("train", metrics)
     trainer.save_metrics("train", metrics)
@@ -144,7 +146,7 @@ def train(model, tokenizer, dataset, output_dir, trainargs):
     trainer.model.save_pretrained(output_dir)
 
     trainer.push_to_hub()
-    print("model successfully pushed to hub.")
+    print(f"model successfully pushed to hub. username/{output_dir}")
     
     # # Free memory for merging weights
     # del model
