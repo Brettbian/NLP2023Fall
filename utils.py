@@ -115,7 +115,13 @@ def format_data(sample, dataset_name, cot):
         actual_answer = sample['answerKey']
     elif dataset_type == 'arc':
         choices = sample['choices']
-        data_dict = json.loads(choices)
+        print(type(choices))
+        print(choices)
+        try:
+            data = json.loads(choices)
+            print(data)
+        except json.JSONDecodeError as e:
+            print(f"Error decoding JSON: {e}")
         combined_list = [f"{label}. {text}" for label, text in zip(data_dict['label'], data_dict['text'])]
         formatted_choices = " ".join(combined_list)
         prompt = f"Question: {sample['question']}.\nOptions: \n{formatted_choices}."
