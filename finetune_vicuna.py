@@ -168,7 +168,8 @@ def example_output(dataset, tokenizer, model):
 
 def main():
     args, args_text = _parse_args()
-    
+    print(args_text)
+
     #get all the args from the parser
     base_model_name = args.base_model_name
     dataset_name = args.dataset_name
@@ -182,6 +183,10 @@ def main():
     seed = args.seed
     cot = args.cot
 
+    # Save args to file
+    os.makedirs(output_dir, exist_ok=True)
+    with open(os.path.join(output_dir, "args.txt"), "w") as f:
+        f.write(args_text)
 
     bnb_config = BitsAndBytesConfig(
             load_in_4bit=True,
