@@ -27,7 +27,7 @@ parser.add_argument("--warmup_steps", type=int, default=5, help="warmup steps")
 parser.add_argument("--logging_steps", type=int, default=1, help="logging steps")
 parser.add_argument("--eval_strategy", type=str, default="epoch", help="evaluation strategy")
 parser.add_argument("--seed", type=int, default=42, help="random seed")
-parser.add_argument("--cot", type = bool, help = "using chain of thought training")
+parser.add_argument('--cot', action='store_true', help='sing chain of thought training')
 
 def _parse_args():
     args = parser.parse_args()
@@ -198,7 +198,7 @@ def main():
     model, tokenizer = load_model(base_model_name, bnb_config)
     max_length = _get_max_length(model)
     dataset = preprocess_dataset(tokenizer, max_length, seed, dataset, cot, dataset_name)
-
+    return
     trainargs=TrainingArguments(
             per_device_train_batch_size=batch_size,
             evaluation_strategy = eval_strategy,

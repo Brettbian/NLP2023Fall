@@ -101,10 +101,12 @@ def format_data(sample, dataset_name, cot):
         prompt = f"Question: {sample['Question']} Based on the following article:\n{sample['Story']}\nOptions: \n{sample['Options']}"
         predicted_answer = sample['Predicted Answer']
         actual_answer = sample['Actual Answer']
+        explaination = sample['Explanation']
     elif dataset_type == 'race':
         prompt = f"Question: {sample['question']} Based on the following article:\n{sample['article']}\nOptions: \n{sample['options']}"
         predicted_answer = sample['predicted_answer']
         actual_answer = sample['answer']
+        explaination = sample['explanation']
     elif dataset_type =='commonsenseqa':
         choices = sample['choices']
         try:
@@ -116,6 +118,7 @@ def format_data(sample, dataset_name, cot):
         prompt = f"Question: {sample['question']} \nOptions: \n{formatted_choices}"
         predicted_answer = sample['predicted_answer']
         actual_answer = sample['answerKey']
+        explaination = sample['explanation']
     elif dataset_type == 'arc':
         choices = sample['choices']
         try:
@@ -127,11 +130,12 @@ def format_data(sample, dataset_name, cot):
         prompt = f"Question: {sample['question']} \nOptions: \n{formatted_choices}"
         predicted_answer = sample['predicted_answer']
         actual_answer = sample['answerKey']
+        explaination = sample['explanation']
     else:
         raise Exception("Dataset type not recognized.")
     if cot:
         if predicted_answer == actual_answer:
-            sample['text'] = f"{INSTRUCTION_KEY}{prompt}{INSTRUCTION_END} Explanation: {sample['explanation']}{END_OF_SENTENCE}"
+            sample['text'] = f"{INSTRUCTION_KEY}{prompt}{INSTRUCTION_END} Explanation: {explaination}{END_OF_SENTENCE}"
         else:
             sample['text'] = f"{INSTRUCTION_KEY}{prompt}{INSTRUCTION_END}{END_OF_SENTENCE}"
     else: 
@@ -168,7 +172,7 @@ def preprocess_dataset(tokenizer: AutoTokenizer, max_length: int, seed, dataset,
 
     # Print one sample from dataset
     print("Sample from dataset:")
-    print(dataset["train"][0])
+    print(dataset["train"][1])
 
     return dataset
 
