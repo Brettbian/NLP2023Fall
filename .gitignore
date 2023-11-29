@@ -1,5 +1,5 @@
 .*
-!/.gitignor
+!/.gitignore
 brettbbb/
 *.npy
 *.pyc

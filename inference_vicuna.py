@@ -1,12 +1,10 @@
 import argparse
-import bitsandbytes as bnb
 from datasets import load_dataset
 import os
 import torch
-import random
+import yaml
 from peft import PeftModel
-from transformers import AutoModelForCausalLM, AutoTokenizer, set_seed, Trainer, TrainingArguments, BitsAndBytesConfig, \
-    DataCollatorForLanguageModeling, DataCollatorWithPadding, Trainer, TrainingArguments
+from transformers import AutoModelForCausalLM, AutoTokenizer
 from utils import _get_max_length, preprocess_dataset
 import csv
 from tqdm import tqdm
@@ -18,20 +16,42 @@ warnings.filterwarnings("ignore")
 
 #create a list of args to pass to the script
 parser = argparse.ArgumentParser()
-parser.add_argument("--model_name", type=str, default="lmsys/vicuna-7b-v1.5", help="model name")
+parser.add_argument("--base_model_name", type=str, default="lmsys/vicuna-7b-v1.5", help="model name")
 parser.add_argument("--dataset_name", type=str, help="dataset name")
+parser.add_argument("--finetuned_model", type=str, help="new model name")
 parser.add_argument("--output_dir", type=str, default="output", help="output directory")
 parser.add_argument("--seed", type=int, default=42, help="random seed")
 parser.add_argument("--cot", type = bool, help = "using chain of thought training")
+parser.add_argument("--split", type = str, default="validation",help = "split of the dataset to use")
+
+def _parse_args():
+    args = parser.parse_args()
+    args_text = yaml.safe_dump(args.__dict__, default_flow_style=False)
+    return args, args_text
 
 
 
 def main():
-    dataset = load_dataset("brettbbb/vicuna_qa_causal_LM_split",split = "test")
-    new_model = "brettbbb/vicuna_mc_finetune"
+    args, args_text = _parse_args()
+    print(args_text)
+    #get all the args from the parser
+    base_model_name = args.base_model_name
+    new_model_name = args.finetuned_model
+    dataset_name = args.dataset_name
+    output_dir = args.output_dir
+    seed = args.seed
+    split = args.split
+
+    # Save args to file
+    os.makedirs(output_dir, exist_ok=True)
+    with open(os.path.join(output_dir, "args.txt"), "w") as f:
+        f.write(args_text)
+
+    dataset = load_dataset(dataset_name,split = split)
+    new_model = new_model_name
     # Reload model in FP16 and merge it with LoRA weights
     base_model = AutoModelForCausalLM.from_pretrained(
-        "lmsys/vicuna-7b-v1.5",
+        base_model_name,
         low_cpu_mem_usage=True,
         return_dict=True,
         torch_dtype=torch.float16,
@@ -39,8 +59,9 @@ def main():
     )
     model = PeftModel.from_pretrained(base_model, new_model)
     model = model.merge_and_unload()
+
     # Reload tokenizer to save it
-    tokenizer = AutoTokenizer.from_pretrained("lmsys/vicuna-7b-v1.5", trust_remote_code=True)
+    tokenizer = AutoTokenizer.from_pretrained(base_model_name, trust_remote_code=True)
     tokenizer.pad_token = tokenizer.eos_token
     tokenizer.padding_side = "right"
 
@@ -54,8 +75,10 @@ def main():
     # Specify the file name
     file_name = "result.csv"
 
+    output_path = os.path.join(output_dir, file_name)
+
     # Open the CSV file in write mode
-    with open(file_name, mode='w', newline='') as file:
+    with open(output_path, mode='w', newline='') as file:
         # Define the CSV writer
         writer = csv.writer(file)
 
@@ -64,8 +87,9 @@ def main():
 
         for i in tqdm(range(len(dataset))):
             answer = dataset[i]['answer']
-            input_text = dataset[i]['formatted_prompt']
-            inputs=tokenizer.encode(input_text, return_tensors='pt').to('cuda')
+            input_text = dataset[i]['text']
+            prompt = input_text.split("</INST>")[0]
+            inputs=tokenizer.encode(prompt, return_tensors='pt').to('cuda')
             outputs = model.generate(inputs=inputs, max_length=1000, num_return_sequences=1)
             decoded_outputs = [tokenizer.decode(output) for output in outputs]
 

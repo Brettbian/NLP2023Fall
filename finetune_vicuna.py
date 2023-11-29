@@ -198,7 +198,6 @@ def main():
     model, tokenizer = load_model(base_model_name, bnb_config)
     max_length = _get_max_length(model)
     dataset = preprocess_dataset(tokenizer, max_length, seed, dataset, cot, dataset_name)
-    return
     trainargs=TrainingArguments(
             per_device_train_batch_size=batch_size,
             evaluation_strategy = eval_strategy,
