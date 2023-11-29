@@ -3,7 +3,7 @@ import torch
 import re
 from functools import partial
 import os
-import json
+import ast
 
 def mkdir(path):
     try:
@@ -98,41 +98,44 @@ def format_data(sample, dataset_name, cot):
     if dataset_type == 'mctest':
         #replace //newline with \n
         sample['Story'] = sample['Story'].replace('\\newline', '')
-        prompt = f"Question: {sample['Question']} Based on the following article:\n{sample['Story']}.\nOptions: \n{sample['Options']}."
+        prompt = f"Question: {sample['Question']} Based on the following article:\n{sample['Story']}\nOptions: \n{sample['Options']}"
         predicted_answer = sample['Predicted Answer']
         actual_answer = sample['Actual Answer']
+        explaination = sample['Explanation']
     elif dataset_type == 'race':
-        prompt = f"Question: {sample['question']} Based on the following article:\n{sample['article']}.\nOptions: \n{sample['options']}."
+        prompt = f"Question: {sample['question']} Based on the following article:\n{sample['article']}\nOptions: \n{sample['options']}"
         predicted_answer = sample['predicted_answer']
         actual_answer = sample['answer']
+        explaination = sample['explanation']
     elif dataset_type =='commonsenseqa':
         choices = sample['choices']
-        data_dict = json.loads(choices)
-        combined_list = [f"{label}. {text}" for label, text in zip(data_dict['label'], data_dict['text'])]
-        formatted_choices = " ".join(combined_list)
-        prompt = f"Question: {sample['question']}.\nOptions: \n{formatted_choices}."
+        try:
+            data_dict = ast.literal_eval(choices)
+            combined_list = [f"{label}. {text}" for label, text in zip(data_dict['label'], data_dict['text'])]
+            formatted_choices = " ".join(combined_list)
+        except (SyntaxError, ValueError):
+            formatted_choices = choices
+        prompt = f"Question: {sample['question']} \nOptions: \n{formatted_choices}"
         predicted_answer = sample['predicted_answer']
         actual_answer = sample['answerKey']
+        explaination = sample['explanation']
     elif dataset_type == 'arc':
         choices = sample['choices']
-        print(type(choices))
-        print(choices)
-        print(choices['label'])
         try:
-            data = json.loads(choices)
-            print(data)
-        except json.JSONDecodeError as e:
-            print(f"Error decoding JSON: {e}")
-        combined_list = [f"{label}. {text}" for label, text in zip(data_dict['label'], data_dict['text'])]
-        formatted_choices = " ".join(combined_list)
-        prompt = f"Question: {sample['question']}.\nOptions: \n{formatted_choices}."
+            data_dict = ast.literal_eval(choices)
+            combined_list = [f"{label}. {text}" for label, text in zip(data_dict['label'], data_dict['text'])]
+            formatted_choices = " ".join(combined_list)
+        except (SyntaxError, ValueError):
+            formatted_choices = choices
+        prompt = f"Question: {sample['question']} \nOptions: \n{formatted_choices}"
         predicted_answer = sample['predicted_answer']
         actual_answer = sample['answerKey']
+        explaination = sample['explanation']
     else:
         raise Exception("Dataset type not recognized.")
     if cot:
         if predicted_answer == actual_answer:
-            sample['text'] = f"{INSTRUCTION_KEY}{prompt}{INSTRUCTION_END} Explanation: {sample['explanation']}{END_OF_SENTENCE}"
+            sample['text'] = f"{INSTRUCTION_KEY}{prompt}{INSTRUCTION_END} Explanation: {explaination}{END_OF_SENTENCE}"
         else:
             sample['text'] = f"{INSTRUCTION_KEY}{prompt}{INSTRUCTION_END}{END_OF_SENTENCE}"
     else: 
@@ -169,7 +172,7 @@ def preprocess_dataset(tokenizer: AutoTokenizer, max_length: int, seed, dataset,
 
     # Print one sample from dataset
     print("Sample from dataset:")
-    print(dataset["train"][0])
+    print(dataset["train"][1])
 
     return dataset
 
