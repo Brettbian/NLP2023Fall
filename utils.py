@@ -3,7 +3,7 @@ import torch
 import re
 from functools import partial
 import os
-import json
+import ast
 
 def mkdir(path):
     try:
@@ -98,34 +98,33 @@ def format_data(sample, dataset_name, cot):
     if dataset_type == 'mctest':
         #replace //newline with \n
         sample['Story'] = sample['Story'].replace('\\newline', '')
-        prompt = f"Question: {sample['Question']} Based on the following article:\n{sample['Story']}.\nOptions: \n{sample['Options']}."
+        prompt = f"Question: {sample['Question']} Based on the following article:\n{sample['Story']}\nOptions: \n{sample['Options']}"
         predicted_answer = sample['Predicted Answer']
         actual_answer = sample['Actual Answer']
     elif dataset_type == 'race':
-        prompt = f"Question: {sample['question']} Based on the following article:\n{sample['article']}.\nOptions: \n{sample['options']}."
+        prompt = f"Question: {sample['question']} Based on the following article:\n{sample['article']}\nOptions: \n{sample['options']}"
         predicted_answer = sample['predicted_answer']
         actual_answer = sample['answer']
     elif dataset_type =='commonsenseqa':
         choices = sample['choices']
-        data_dict = json.loads(choices)
-        combined_list = [f"{label}. {text}" for label, text in zip(data_dict['label'], data_dict['text'])]
-        formatted_choices = " ".join(combined_list)
-        prompt = f"Question: {sample['question']}.\nOptions: \n{formatted_choices}."
+        try:
+            data_dict = ast.literal_eval(choices)
+            combined_list = [f"{label}. {text}" for label, text in zip(data_dict['label'], data_dict['text'])]
+            formatted_choices = " ".join(combined_list)
+        except (SyntaxError, ValueError):
+            formatted_choices = choices
+        prompt = f"Question: {sample['question']} \nOptions: \n{formatted_choices}"
         predicted_answer = sample['predicted_answer']
         actual_answer = sample['answerKey']
     elif dataset_type == 'arc':
         choices = sample['choices']
-        print(type(choices))
-        print(choices)
-        print(choices['label'])
         try:
-            data = json.loads(choices)
-            print(data)
-        except json.JSONDecodeError as e:
-            print(f"Error decoding JSON: {e}")
-        combined_list = [f"{label}. {text}" for label, text in zip(data_dict['label'], data_dict['text'])]
-        formatted_choices = " ".join(combined_list)
-        prompt = f"Question: {sample['question']}.\nOptions: \n{formatted_choices}."
+            data_dict = ast.literal_eval(choices)
+            combined_list = [f"{label}. {text}" for label, text in zip(data_dict['label'], data_dict['text'])]
+            formatted_choices = " ".join(combined_list)
+        except (SyntaxError, ValueError):
+            formatted_choices = choices
+        prompt = f"Question: {sample['question']} \nOptions: \n{formatted_choices}"
         predicted_answer = sample['predicted_answer']
         actual_answer = sample['answerKey']
     else:
