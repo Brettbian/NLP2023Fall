@@ -5,7 +5,7 @@ import torch
 import yaml
 from peft import PeftModel
 from transformers import AutoModelForCausalLM, AutoTokenizer
-from utils import _get_max_length, preprocess_dataset
+from utils import _get_max_length, preprocess_dataset, get_answer_column
 import csv
 from tqdm import tqdm
 
@@ -28,6 +28,7 @@ def _parse_args():
     args = parser.parse_args()
     args_text = yaml.safe_dump(args.__dict__, default_flow_style=False)
     return args, args_text
+
 
 
 
@@ -77,6 +78,8 @@ def main():
 
     output_path = os.path.join(output_dir, file_name)
 
+    answer_column = get_answer_column(dataset_name)
+
     # Open the CSV file in write mode
     with open(output_path, mode='w', newline='') as file:
         # Define the CSV writer
@@ -86,17 +89,17 @@ def main():
         writer.writerow(['input_text', 'answer', 'generated_output'])
 
         for i in tqdm(range(len(dataset))):
-            answer = dataset[i]['answer']
+            answer = dataset[i][answer_column]
             input_text = dataset[i]['text']
             prompt = input_text.split("</INST>")[0]
-            inputs=tokenizer.encode(prompt, return_tensors='pt').to('cuda')
+            inputs = tokenizer.encode(prompt, return_tensors='pt').to('cuda')
             outputs = model.generate(inputs=inputs, max_length=1000, num_return_sequences=1)
             decoded_outputs = [tokenizer.decode(output) for output in outputs]
 
             # Write the data for each iteration
             writer.writerow([input_text, answer, decoded_outputs])
 
-    print(f"Data has been written to {file_name}")
+    print(f"Data has been written to {output_path}")
 
 
 

@@ -78,7 +78,18 @@ def _identify_dataset_type(dataset_name):
         return 'commonsenseqa'
     elif bool(re.search(r'ARC', dataset_name, re.IGNORECASE)):
         return 'arc'
-    
+
+def get_answer_column(dataset_name):
+    dataset_type = _identify_dataset_type(dataset_name)
+    if dataset_type == 'mctest':
+        return 'Actual Answer'
+    if dataset_type == 'arc':
+        return 'answerKey'
+    if dataset_type == 'commonsenseqa':
+        return 'answerKey'
+    if dataset_type == 'race':
+        return 'answer'
+
 def preprocess_batch(batch, tokenizer, max_length):
     """
     Tokenizing a batch
