@@ -66,7 +66,7 @@ def main():
     max_length = _get_max_length(model)
     seed = 1
 
-    dataset = dataset.map(generate_prompt, batched=True, fn_kwargs={"dataset_name": dataset_name})
+    dataset = dataset.map(generate_prompt, fn_kwargs={"dataset_name": dataset_name})
     dataset.set_format("torch")
 
     print(dataset[0])
