@@ -157,8 +157,10 @@ def train(model, tokenizer, dataset, output_dir, trainargs):
 
 def example_output(dataset, tokenizer, model):
     model.config.use_cache = True
+    print("-"*50)
     print("Example output from the finetuned model.")
-    input_text = dataset['validation'][0]['text'].split("</INST>")[0]
+    text = dataset['validation'][0]['text']
+    input_text = text[:text.find("<INST/>")+7]
     print(f"input text: {input_text}")
     inputs=tokenizer.encode(input_text, return_tensors='pt').to('cuda')
     outputs = model.generate(inputs=inputs, max_length=1000, num_return_sequences=1)

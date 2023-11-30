@@ -5,7 +5,7 @@ import torch
 import yaml
 from peft import PeftModel
 from transformers import AutoModelForCausalLM, AutoTokenizer
-from utils import _get_max_length, preprocess_dataset, get_answer_column
+from utils import _get_max_length, get_answer_column, generate_prompt
 import csv
 from tqdm import tqdm
 
@@ -28,9 +28,6 @@ def _parse_args():
     args = parser.parse_args()
     args_text = yaml.safe_dump(args.__dict__, default_flow_style=False)
     return args, args_text
-
-
-
 
 def main():
     args, args_text = _parse_args()
@@ -70,7 +67,7 @@ def main():
     max_length = _get_max_length(model)
     seed = 1
 
-    dataset = preprocess_dataset(tokenizer, max_length, seed, dataset)
+    dataset = dataset.map(generate_prompt, batched=True, fn_kwargs={"dataset_name": dataset_name})
     dataset.set_format("torch")
 
     # Specify the file name
@@ -90,14 +87,17 @@ def main():
 
         for i in tqdm(range(len(dataset))):
             answer = dataset[i][answer_column]
-            input_text = dataset[i]['text']
-            prompt = input_text.split("</INST>")[0]
+            prompt = dataset[i]['text']
             inputs = tokenizer.encode(prompt, return_tensors='pt').to('cuda')
             outputs = model.generate(inputs=inputs, max_length=1000, num_return_sequences=1)
             decoded_outputs = [tokenizer.decode(output) for output in outputs]
 
             # Write the data for each iteration
-            writer.writerow([input_text, answer, decoded_outputs])
+            writer.writerow([prompt, answer, decoded_outputs])
+
+            # Check if it's a multiple of 10 and update the CSV file
+            if (i + 1) % 10 == 0:
+                file.flush()
 
     print(f"Data has been written to {output_path}")
 
