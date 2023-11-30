@@ -70,6 +70,8 @@ def main():
     dataset = dataset.map(generate_prompt, batched=True, fn_kwargs={"dataset_name": dataset_name})
     dataset.set_format("torch")
 
+    print(dataset[0])
+
     # Specify the file name
     file_name = "result.csv"
 
@@ -77,6 +79,7 @@ def main():
 
     answer_column = get_answer_column(dataset_name)
 
+    print("Start Inferencing...")
     # Open the CSV file in write mode
     with open(output_path, mode='w', newline='') as file:
         # Define the CSV writer
