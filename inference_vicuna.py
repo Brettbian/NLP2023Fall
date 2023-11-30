@@ -21,7 +21,6 @@ parser.add_argument("--dataset_name", type=str, help="dataset name")
 parser.add_argument("--finetuned_model", type=str, help="new model name")
 parser.add_argument("--output_dir", type=str, default="output", help="output directory")
 parser.add_argument("--seed", type=int, default=42, help="random seed")
-parser.add_argument("--cot", type = bool, help = "using chain of thought training")
 parser.add_argument("--split", type = str, default="validation",help = "split of the dataset to use")
 
 def _parse_args():
