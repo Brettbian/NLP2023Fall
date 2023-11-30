@@ -73,7 +73,7 @@ def main():
     print(dataset[0])
 
     # Specify the file name
-    file_name = "result.csv"
+    file_name = "inference_result.csv"
 
     output_path = os.path.join(output_dir, file_name)
 
