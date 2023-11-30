@@ -42,7 +42,7 @@ def main():
 
     # Save args to file
     os.makedirs(output_dir, exist_ok=True)
-    with open(os.path.join(output_dir, "args.txt"), "w") as f:
+    with open(os.path.join(output_dir, "inference_args.txt"), "w") as f:
         f.write(args_text)
 
     dataset = load_dataset(dataset_name,split = split)
