@@ -45,17 +45,26 @@ def main():
         f.write(args_text)
 
     dataset = load_dataset(dataset_name,split = split)
-    new_model = new_model_name
+    if new_model_name:
+        new_model = new_model_name
     # Reload model in FP16 and merge it with LoRA weights
-    base_model = AutoModelForCausalLM.from_pretrained(
-        base_model_name,
-        low_cpu_mem_usage=True,
-        return_dict=True,
-        torch_dtype=torch.float16,
-        device_map="auto",
-    )
-    model = PeftModel.from_pretrained(base_model, new_model)
-    model = model.merge_and_unload()
+        base_model = AutoModelForCausalLM.from_pretrained(
+            base_model_name,
+            low_cpu_mem_usage=True,
+            return_dict=True,
+            torch_dtype=torch.float16,
+            device_map="auto",
+        )
+        model = PeftModel.from_pretrained(base_model, new_model)
+        model = model.merge_and_unload()
+    else:
+        model = AutoModelForCausalLM.from_pretrained(
+            base_model_name,
+            low_cpu_mem_usage=True,
+            return_dict=True,
+            torch_dtype=torch.float16,
+            device_map="auto",
+        )
 
     # Reload tokenizer to save it
     tokenizer = AutoTokenizer.from_pretrained(base_model_name, trust_remote_code=True)
