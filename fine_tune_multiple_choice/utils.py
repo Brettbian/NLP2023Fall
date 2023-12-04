@@ -78,7 +78,18 @@ def _identify_dataset_type(dataset_name):
         return 'commonsenseqa'
     elif bool(re.search(r'ARC', dataset_name, re.IGNORECASE)):
         return 'arc'
-    
+
+def get_answer_column(dataset_name):
+    dataset_type = _identify_dataset_type(dataset_name)
+    if dataset_type == 'mctest':
+        return 'Actual Answer'
+    if dataset_type == 'arc':
+        return 'answerKey'
+    if dataset_type == 'commonsenseqa':
+        return 'answerKey'
+    if dataset_type == 'race':
+        return 'answer'
+
 def preprocess_batch(batch, tokenizer, max_length):
     """
     Tokenizing a batch
@@ -176,3 +187,38 @@ def preprocess_dataset(tokenizer: AutoTokenizer, max_length: int, seed, dataset,
 
     return dataset
 
+def generate_prompt(sample, dataset_name):
+    dataset_type = _identify_dataset_type(dataset_name)
+    if dataset_type == 'mctest':
+        sample['Story'] = sample['Story'].replace('\\newline', '')
+        input = f"{sample['Question']} Based on the following article:\n{sample['Story']}\nOptions: \n{sample['Options']}"
+    elif dataset_type == 'arc':
+        choices = sample['choices']
+        try:
+            data_dict = ast.literal_eval(choices)
+            combined_list = [f"{label}. {text}" for label, text in zip(data_dict['label'], data_dict['text'])]
+            formatted_choices = " ".join(combined_list)
+        except (SyntaxError, ValueError):
+            formatted_choices = choices
+        input = f"{sample['question']} \nOptions: \n{formatted_choices}"
+    elif dataset_type == 'commonsenseqa':
+        choices = sample['choices']
+        try:
+            data_dict = ast.literal_eval(choices)
+            combined_list = [f"{label}. {text}" for label, text in zip(data_dict['label'], data_dict['text'])]
+            formatted_choices = " ".join(combined_list)
+        except (SyntaxError, ValueError):
+            formatted_choices = choices
+        input = f"{sample['question']} \nOptions: \n{formatted_choices}"
+    elif dataset_type == 'race':
+        input = f"{sample['question']} Based on the following article:\n{sample['article']}\nOptions: \n{sample['options']}"
+    else:
+        raise Exception("Dataset type not recognized.")
+    prompt = f"Question: [{input}] Please answer the following multiple-choice question and only give me the selected option and provide your confidence level. \
+    Note that the confidence level indicates the degree of certainty you have about your answer and is represented as a percentage. Make sure you answer in the following structure: \n \
+    [Answer]: , \n[Confidence (0-100)]: \n \
+    Note: The confidence level indicates the degree of certainty you have about your answer and is represented as a percentage. \
+    For instance, if your confidence level is 80%, it means you are 80% certain that your answer is correct and there is a 20% chance that it may be incorrect. "
+    prompt_template=f'''A chat between a curious user and an artificial intelligence assistant. The assistant gives helpful, detailed, and polite answers to the user's questions. USER: {prompt} ASSISTANT:'''
+    sample['text'] = prompt_template
+    return sample
