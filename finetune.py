@@ -231,7 +231,7 @@ def main():
     )
 
     trainer = train(model, tokenizer, dataset, output_dir, trainargs, train_size, evaluation)
-    if args.skip_example is None:
+    if args.skip_example is not True:
         example_output(dataset, tokenizer, model)
 
 if __name__ == "__main__":
