@@ -29,8 +29,8 @@ parser.add_argument("--eval_strategy", type=str, default="epoch", help="evaluati
 parser.add_argument("--seed", type=int, default=42, help="random seed")
 parser.add_argument('--cot', action='store_true', help='sing chain of thought training')
 parser.add_argument("--train_size", type=int, help="number of training examples")
-parser.add_argument("--evaluation", action='store_true' help="whether evaluate the model after each epoch")
-parser.add_argument("--skip_example", action='store_true' help="whether to skip the example output after training")
+parser.add_argument("--evaluation", action='store_true', help="whether evaluate the model after each epoch")
+parser.add_argument("--skip_example", action='store_true', help="whether to skip the example output after training")
 
 def _parse_args():
     args = parser.parse_args()
