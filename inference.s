@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-#SBATCH --job-name=mc_test
+#SBATCH --job-name=cs_test
 #SBATCH --nodes=1
 #SBATCH --cpus-per-task=1
 #SBATCH --time=8:00:00
@@ -22,9 +22,10 @@ conda activate
 # Your GPU-accelerated command (replace this with your actual command)
 cd /scratch/yb970/NLP2023Fall
 
-python inference.py --finetuned_model brettbbb/mc_cot_16 --dataset_name BENBENBENb/McTest640COT --output_dir brettbbb/mc_cot_16
-python inference.py --finetuned_model brettbbb/mc_cot_32 --dataset_name BENBENBENb/McTest640COT --output_dir brettbbb/mc_cot_32
-python inference.py --finetuned_model brettbbb/mc_cot_64 --dataset_name BENBENBENb/McTest640COT --output_dir brettbbb/mc_cot_64 
-python inference.py --finetuned_model brettbbb/mc_cot_128 --dataset_name BENBENBENb/McTest640COT --output_dir brettbbb/mc_cot_128
+python inference.py --finetuned_model brettbbb/cs_cot_16 --dataset_name BENBENBENb/CommonsenseQA1000COT --output_dir brettbbb/cs_cot_16
+python inference.py --finetuned_model brettbbb/cs_cot_32 --dataset_name BENBENBENb/CommonsenseQA1000COT --output_dir brettbbb/cs_cot_32
+python inference.py --finetuned_model brettbbb/cs_cot_64 --dataset_name BENBENBENb/CommonsenseQA1000COT --output_dir brettbbb/cs_cot_64 
+python inference.py --finetuned_model brettbbb/cs_cot_128 --dataset_name BENBENBENb/CommonsenseQA1000COT --output_dir brettbbb/cs_cot_128
+python inference.py --finetuned_model brettbbb/cs_cot_256 --dataset_name BENBENBENb/CommonsenseQA1000COT --output_dir brettbbb/cs_cot_256
 '
 
