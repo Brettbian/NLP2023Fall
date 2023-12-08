@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-#SBATCH --job-name=csfinetune
+#SBATCH --job-name=mc_test
 #SBATCH --nodes=1
 #SBATCH --cpus-per-task=1
 #SBATCH --time=8:00:00
