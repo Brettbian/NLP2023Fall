@@ -6,7 +6,7 @@
 #SBATCH --time=5:00:00
 #SBATCH --mem=15GB
 #SBATCH --gres=gpu:v100:1
-#SBATCH --mail-type=BEGIN, END
+#SBATCH --mail-type=BEGIN,END
 #SBATCH --mail-user=yb970@nyu.edu
 
 # Execute your commands inside a Singularity container
