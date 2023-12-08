@@ -28,6 +28,7 @@ parser.add_argument("--logging_steps", type=int, default=1, help="logging steps"
 parser.add_argument("--eval_strategy", type=str, default="epoch", help="evaluation strategy")
 parser.add_argument("--seed", type=int, default=42, help="random seed")
 parser.add_argument('--cot', action='store_true', help='sing chain of thought training')
+parser.add_argument("--train_size", type=int, help="number of training examples")
 
 def _parse_args():
     args = parser.parse_args()
@@ -86,7 +87,7 @@ def print_trainable_parameters(model, use_4bit=False):
     )
 
 
-def train(model, tokenizer, dataset, output_dir, trainargs):
+def train(model, tokenizer, dataset, output_dir, trainargs, train_size):
     # Apply preprocessing to the model to prepare it by
     # 1 - Enabling gradient checkpointing to reduce memory usage during fine-tuning
     model.gradient_checkpointing_enable()
@@ -107,6 +108,8 @@ def train(model, tokenizer, dataset, output_dir, trainargs):
     pad_token_id = tokenizer.pad_token_id
     model.config.pad_token_id = pad_token_id
     
+    if train_size is not None:
+        dataset['train'] = dataset['train'].select(range(train_size))
     # Training parameters
     trainer = Trainer(
         model=model,
@@ -184,6 +187,7 @@ def main():
     eval_strategy = args.eval_strategy
     seed = args.seed
     cot = args.cot
+    train_size = args.train_size
 
     # Save args to file
     os.makedirs(output_dir, exist_ok=True)
@@ -213,7 +217,7 @@ def main():
             push_to_hub = True
     )
 
-    trainer = train(model, tokenizer, dataset, output_dir, trainargs)
+    trainer = train(model, tokenizer, dataset, output_dir, trainargs, train_size)
     example_output(dataset, tokenizer, model)
 
 if __name__ == "__main__":
