@@ -29,6 +29,7 @@ parser.add_argument("--eval_strategy", type=str, default="epoch", help="evaluati
 parser.add_argument("--seed", type=int, default=42, help="random seed")
 parser.add_argument('--cot', action='store_true', help='sing chain of thought training')
 parser.add_argument("--train_size", type=int, help="number of training examples")
+parser.add_argument("--evaluation", action='store_true' help="whether evaluate the model after each epoch")
 
 def _parse_args():
     args = parser.parse_args()
@@ -87,7 +88,7 @@ def print_trainable_parameters(model, use_4bit=False):
     )
 
 
-def train(model, tokenizer, dataset, output_dir, trainargs, train_size):
+def train(model, tokenizer, dataset, output_dir, trainargs, train_size, evaluation):
     # Apply preprocessing to the model to prepare it by
     # 1 - Enabling gradient checkpointing to reduce memory usage during fine-tuning
     model.gradient_checkpointing_enable()
@@ -111,13 +112,23 @@ def train(model, tokenizer, dataset, output_dir, trainargs, train_size):
     if train_size is not None:
         dataset['train'] = dataset['train'].select(range(train_size))
     # Training parameters
-    trainer = Trainer(
-        model=model,
-        train_dataset=dataset['train'],
-        eval_dataset = dataset['validation'],
-        args = trainargs,
-        data_collator=DataCollatorForLanguageModeling(tokenizer, mlm=False)
-    )
+    if evaluation is True:
+        trainer = Trainer(
+            model=model,
+            train_dataset=dataset['train'],
+            eval_dataset = dataset['validation'],
+            args = trainargs,
+            data_collator=DataCollatorForLanguageModeling(tokenizer, mlm=False)
+        )
+    else:
+        trainargs.evaluation_strategy = None
+        trainer = Trainer(
+            model=model,
+            train_dataset=dataset['train'],
+            args = trainargs,
+            data_collator=DataCollatorForLanguageModeling(tokenizer, mlm=False)
+        )
+        
 
     model.config.use_cache = False  # re-enable for inference to speed up predictions for similar inputs
 
@@ -188,6 +199,7 @@ def main():
     seed = args.seed
     cot = args.cot
     train_size = args.train_size
+    evaluation = args.evaluation
 
     # Save args to file
     os.makedirs(output_dir, exist_ok=True)
@@ -217,7 +229,7 @@ def main():
             push_to_hub = True
     )
 
-    trainer = train(model, tokenizer, dataset, output_dir, trainargs, train_size)
+    trainer = train(model, tokenizer, dataset, output_dir, trainargs, train_size, evaluation)
     example_output(dataset, tokenizer, model)
 
 if __name__ == "__main__":
