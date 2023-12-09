@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-#SBATCH --job-name=cs_test
+#SBATCH --job-name=cs_test1
 #SBATCH --nodes=1
 #SBATCH --cpus-per-task=1
 #SBATCH --time=8:00:00
