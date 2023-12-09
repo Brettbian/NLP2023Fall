@@ -22,10 +22,10 @@ conda activate
 # Your GPU-accelerated command (replace this with your actual command)
 cd /scratch/yb970/NLP2023Fall
 
-python inference.py --finetuned_model brettbbb/cs_cot_16 --dataset_name BENBENBENb/CommonsenseQA1000COT --output_dir brettbbb/cs_cot_16
-python inference.py --finetuned_model brettbbb/cs_cot_32 --dataset_name BENBENBENb/CommonsenseQA1000COT --output_dir brettbbb/cs_cot_32
-python inference.py --finetuned_model brettbbb/cs_cot_64 --dataset_name BENBENBENb/CommonsenseQA1000COT --output_dir brettbbb/cs_cot_64 
-python inference.py --finetuned_model brettbbb/cs_cot_128 --dataset_name BENBENBENb/CommonsenseQA1000COT --output_dir brettbbb/cs_cot_128
-python inference.py --finetuned_model brettbbb/cs_cot_256 --dataset_name BENBENBENb/CommonsenseQA1000COT --output_dir brettbbb/cs_cot_256
+python inference.py --finetuned_model brettbbb/cs_cot_16 --dataset_name BENBENBENb/CommonsenseQA1000COT --output_dir brettbbb/cs_cot_16 --split validation
+python inference.py --finetuned_model brettbbb/cs_cot_32 --dataset_name BENBENBENb/CommonsenseQA1000COT --output_dir brettbbb/cs_cot_32 --split validation
+python inference.py --finetuned_model brettbbb/cs_cot_64 --dataset_name BENBENBENb/CommonsenseQA1000COT --output_dir brettbbb/cs_cot_64 --split validation
+python inference.py --finetuned_model brettbbb/cs_cot_128 --dataset_name BENBENBENb/CommonsenseQA1000COT --output_dir brettbbb/cs_cot_128 --split validation
+python inference.py --finetuned_model brettbbb/cs_cot_256 --dataset_name BENBENBENb/CommonsenseQA1000COT --output_dir brettbbb/cs_cot_256 --split validation
 '
 
