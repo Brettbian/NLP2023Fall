@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-#SBATCH --job-name=race_train_test
+#SBATCH --job-name=arc_tt
 #SBATCH --nodes=1
 #SBATCH --cpus-per-task=1
 #SBATCH --time=8:00:00
