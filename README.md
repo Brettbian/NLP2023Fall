@@ -10,8 +10,8 @@ This section documents the sentiment-analysis datasets used in the NLP2023Fall p
 - **Test Set:** 931 entries
 
 #### Processing and Access
-- **Notebook:** [SST2.ipynb](gpt-multiple-choice-cot-dataset-generator/McTest/McTest.ipynb)
-- **Generated Dataset:** [Hugging Face Repository](https://huggingface.co/datasets/BENBENBENb/McTest640COT)
+- **Notebook:** [SST2.ipynb](cot_generator_sentiment/SST2.ipynb)
+- **Generated Dataset:** [Mariaaaaa/SST2_with_COT](https://huggingface.co/datasets/Mariaaaaa/SST2_with_COT)
 
 ### 2. Twitter Sentiment Analysis
 #### Overview
@@ -20,8 +20,8 @@ This section documents the sentiment-analysis datasets used in the NLP2023Fall p
 - **Test Set:** 319 entries
 
 #### Processing and Access
-- **Notebook:** [Twitter.ipynb](gpt-multiple-choice-cot-dataset-generator/McTest/McTest.ipynb)
-- **Generated Dataset:** [Hugging Face Repository](https://huggingface.co/datasets/BENBENBENb/McTest640COT)
+- **Notebook:** [Twitter.ipynb](cot_generator_sentiment/Twitter.ipynb)
+- **Generated Dataset:** [Mariaaaaa/Twitter_with_COT](https://huggingface.co/datasets/Mariaaaaa/Twitter_with_COT)
 
 ### 3. Financial Phrasebank
 #### Overview
@@ -30,7 +30,16 @@ This section documents the sentiment-analysis datasets used in the NLP2023Fall p
 - **Test Set:** 302 entries
 
 #### Processing and Access
-- **Notebook:** [Finance.ipynb](gpt-multiple-choice-cot-dataset-generator/RACE/RACE.ipynb)
-- **Generated Dataset:** [BENBENBENb/RACE1000COT](https://huggingface.co/datasets/BENBENBENb/RACE1000COT)
+- **Notebook:** [Finance.ipynb](cot_generator_sentiment/Finance.ipynb)
+- **Generated Dataset:** [Mariaaaaa/Finance_COT_GPT4](https://huggingface.co/datasets/Mariaaaaa/Finance_COT_GPT4)
 
 ### 4. Google Play
+[GooglePlay](cot_generator_sentiment/Finance.ipynb) is a self-built dataset containing players’ reviews on games, labeled as positive or negative, including 108837 entries.
+- **Training Set:** 650 entries
+- **Test Set:** 306 entries
+
+#### Processing and Access
+- **Notebook:** [Google play.ipynb](cot_generator_sentiment/Google play.ipynb)
+- **Generated Dataset:** [Mariaaaaa/Google_with_COT](https://huggingface.co/datasets/Mariaaaaa/Google_with_COT)
+
+
