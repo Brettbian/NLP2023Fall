@@ -1,6 +1,0 @@
-*.txt
-!requirements.txt
-*.jsonl
-*.pyc
-**/__pycache__/
-
