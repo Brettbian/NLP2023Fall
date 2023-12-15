@@ -34,12 +34,12 @@ This section documents the sentiment-analysis datasets used in the NLP2023Fall p
 - **Generated Dataset:** [Mariaaaaa/Finance_COT_GPT4](https://huggingface.co/datasets/Mariaaaaa/Finance_COT_GPT4)
 
 ### 4. Google Play
-[GooglePlay](cot_generator_sentiment/Finance.ipynb) is a self-built dataset containing players’ reviews on games, labeled as positive or negative, including 108837 entries.
+[GooglePlay](google_play_comments.csv) is a self-built dataset containing players’ reviews on games, labeled as positive or negative, including 108837 entries.
 - **Training Set:** 650 entries
 - **Test Set:** 306 entries
 
 #### Processing and Access
-- **Notebook:** [Google play.ipynb](cot_generator_sentiment/Google play.ipynb)
+- **Notebook:** [Googleplay.ipynb](cot_generator_sentiment/Googleplay.ipynb)
 - **Generated Dataset:** [Mariaaaaa/Google_with_COT](https://huggingface.co/datasets/Mariaaaaa/Google_with_COT)
 
 
