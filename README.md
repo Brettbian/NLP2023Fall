@@ -85,7 +85,7 @@ Combined equal parts from ARC-Easy and ARC-Challenge, ensuring variety.
 - **Generated Dataset:** [Mariaaaaa/Finance_COT_GPT4](https://huggingface.co/datasets/Mariaaaaa/Finance_COT_GPT4)
 
 ### 4. Google Play
-[GooglePlay](google_play_comments.csv) is a self-built dataset containing players’ reviews on games, labeled as positive or negative, including 108837 entries.
+[GooglePlay](https://huggingface.co/datasets/Mariaaaaa/Googleplay_sentiment) is a self-built dataset containing players’ reviews on games, labeled as positive or negative, including 108837 entries.
 - **Training Set:** 650 entries
 - **Test Set:** 306 entries
 
