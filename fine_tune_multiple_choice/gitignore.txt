@@ -1,0 +1,6 @@
+.*
+!/.gitignore
+brettbbb/
+*.npy
+*.pyc
+*.out
