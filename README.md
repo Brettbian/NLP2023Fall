@@ -92,4 +92,7 @@ Combined equal parts from ARC-Easy and ARC-Challenge, ensuring variety.
 #### Processing and Access
 - **Notebook:** [Googleplay.ipynb](cot_generator_sentiment/Googleplay.ipynb)
 - **Generated Dataset:** [Mariaaaaa/Google_with_COT](https://huggingface.co/datasets/Mariaaaaa/Google_with_COT)
+  
+## Fine-tune Model
+All the scripts including training and inference can be found in [fine_tune_multiple_choice](fine_tune_multiple_choice) and [fine_tune_sentiment_analysis](fine_tune_sentiment_analysis)
 
