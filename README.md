@@ -10,7 +10,7 @@ This section documents the datasets, focusing on the generation of sentiment-ana
 - **Test Set:** 161 entries
 
 #### Processing and Access
-- **Notebook:** [Truthfulqa.ipynb](cot_generator_multiple-choice question/Truthfulqa.ipynb)
+- **Notebook:** [Truthfulqa.ipynb](cot_generator_multiple-choice-question/Truthfulqa.ipynb)
 - **Generated Dataset:** [Hugging Face Repository](https://huggingface.co/datasets/BENBENBENb/McTest640COT)
 
 ### 2. McTest
@@ -21,7 +21,7 @@ This section documents the datasets, focusing on the generation of sentiment-ana
 - **Test Set:** 240 entries
 
 #### Processing and Access
-- **Notebook:** [McTest.ipynb](cot_generator_multiple-choice question/McTest.ipynb)
+- **Notebook:** [McTest.ipynb](cot_generator_multiple-choice-question/McTest.ipynb)
 - **Generated Dataset:** [Hugging Face Repository](https://huggingface.co/datasets/BENBENBENb/McTest640COT)
 
 ### 3. RACE
@@ -35,7 +35,7 @@ The [RACE dataset](https://huggingface.co/datasets/race/viewer/middle), a medium
 Selected by excluding stories over 800 characters and randomly sampling to achieve the subset size.
 
 #### Processing and Access
-- **Notebook:** [RACE.ipynb](cot_generator_multiple-choice question/RACE.ipynb)
+- **Notebook:** [RACE.ipynb](cot_generator_multiple-choice-question/RACE.ipynb)
 - **Generated Dataset:** [BENBENBENb/RACE1000COT](https://huggingface.co/datasets/BENBENBENb/RACE1000COT)
 
 ### 4. ARC
@@ -49,7 +49,7 @@ Selected by excluding stories over 800 characters and randomly sampling to achie
 Combined equal parts from ARC-Easy and ARC-Challenge, ensuring variety.
 
 #### Processing and Access
-- **Notebook:** [ARC.ipynb](cot_generator_multiple-choice question/ARC.ipynb)
+- **Notebook:** [ARC.ipynb](cot_generator_multiple-choice-question/ARC.ipynb)
 - **Generated Dataset:** [BENBENBENb/ARC1000COT](https://huggingface.co/datasets/BENBENBENb/ARC1000COT)
 
 ### Task 2: Sentiment Analysis
