@@ -96,3 +96,6 @@ Combined equal parts from ARC-Easy and ARC-Challenge, ensuring variety.
 ## Fine-tune Model
 All the scripts including training and inference can be found in [fine_tune_multiple_choice](fine_tune_multiple_choice) and [fine_tune_sentiment_analysis](fine_tune_sentiment_analysis)
 
+## Calculation of Metrics
+[Calculation_of_Metrics.ipynb](Calculation_of_Metrics.ipynb) calculates the three metrics of Accuracy, ROB and ECE given a output csv file 
+
